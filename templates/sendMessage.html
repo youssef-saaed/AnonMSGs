@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ username }}
+{% endblock %}
+
+{% block main %}
+    <div class="container w-100 d-flex flex-column justify-content-center align-items-center" id="msgForm">
+        <h1 class="text-body-secondary">{{ username }}</h1>
+        <form method="POST">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    Error! {{ error }}
+                </div>
+            {% endif %}
+            <div class="my-2 form-floating">
+                <textarea class="form-control" name="msg" id="msg" placeholder="Your message" rows="3" autofocus></textarea>
+                <label for="msg">Your message</label>
+            </div>
+            <input type="hidden" id="voiceholder" name="voice"/>
+            <div class="d-grid mt-4">
+                <button type="button" class="btn btn-dark btn-lg d-flex align-items-center justify-content-center" id="recordBTN" data-state="0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-mic my-1" viewBox="0 0 16 16">
+                        <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0v5zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3z"/>
+                    </svg>
+                    <span class="mx-1">Record</span>
+                </button>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg my-2">Send</button>
+            </div>
+            {% if session["user_id"] %}
+                <div class="form-check form-switch d-flex justify-content-center form-control-lg">
+                    <input class="form-check-input me-2" type="checkbox" role="switch" id="anonCheck" checked>
+                    <label class="form-check-label" for="anonCheck">Send anonymously</label>
+                </div>
+                <input type="hidden" value="{{ session['user_id'] }}" name="sender" id="sender"/>
+            {% endif %}
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='sendMessage.js') }}"></script>
+{% endblock %}

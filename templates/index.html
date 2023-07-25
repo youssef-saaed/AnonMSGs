@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div class="container min-vh-100 w-100 d-flex flex-column justify-content-center align-items-center">
+        {% if messages %}
+            <div class="my-5" id="noMsgSpace"></div>
+        {% endif %}
+        <h1 class="my-3 display-4 fw-semibold">{{ name }}</h1>
+        <h2 class="my-1 text-body-secondary">Your messages</h2>
+        <div class="border border-1 rounded p-3 mb-5" id="messageContainer">
+            <div class="alert alert-danger d-none" role="alert" id="errorBox">
+                Something wrong occured try again later!
+            </div>
+            <div class="my-2">
+                <div class="input-group">
+                    <span class="input-group-text" id="inputGroupPrepend">Share your url</span>
+                    <input type="text" readonly value="{{ url_for('sendMessage', username=username) }}" id="user_url" class="form-control"/>
+                </div>
+            </div>
+            {% if messages %}
+                {% for m in messages %}
+                    <div class="card my-2" id="messageCard">
+                        <div class="card-header">
+                            {% if m[2] %}
+                                From {{ m[2] }}
+                            {% else %}
+                                Anonymous
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ m[0] }}</p>
+                                {% if m[1] %}
+                                    <audio class="w-100 my-2" src="{{ url_for('static', filename=m[1][7:]) }}" controls></audio>
+                                {% endif %}
+                            <div class="w-100 d-flex justify-content-end">
+                                <form>
+                                    <input type="hidden" value="{{ m[3] }}" name="message_id"/>
+                                    <button type="button" class="btn btn-danger deleteMsg">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2 class="my-3 text-body-secondary text-center" id="messageCard">No messages bro :(</h2>
+            {% endif %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='viewMessages.js') }}"></script>
+{% endblock %}

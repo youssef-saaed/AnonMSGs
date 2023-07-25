@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ error_code }}
+{% endblock %}
+
+{% block main %}
+    <div class="w-100 vh-100 d-flex align-items-center justify-content-center">
+        <span class="display-1 fw-semibold text-body-secondary">{{ error_code }} | {{ error_msg }}</span>
+    </div>
+{% endblock %}

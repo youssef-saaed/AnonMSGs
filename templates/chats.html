@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Chats
+{% endblock %}
+
+{% block main %}
+    <div class="container min-vh-100 w-100 d-flex flex-column justify-content-center align-items-center">
+        {% if chats %}
+            <div class="my-5"></div>
+        {% endif %}
+        <h2 class="my-5">Chats</h2>
+        <div class="border border-1 rounded p-3 mb-5" id="chatsContainer">
+            <div class="alert alert-danger d-none" role="alert" id="errorBox">Something wrong occurred please reload the page</div>
+            {% if not chats %}
+                <h2 class="my-3 text-body-secondary text-center" id="messageCard">No chats bro :(</h2>
+            {% else %}
+                {% for c in chats %}
+                    <div class="border border-1 rounded p-3 my-1 d-flex flex-row justify-content-between align-content-center">
+                        <h5 class="text-body-secondary my-auto">{{ c[0] }}</h5>
+                        <div>
+                            <form>
+                                <input type="hidden" name="chat_id" value="{{ c[1] }}"/>
+                                <button type="button" class="btn btn-dark" data-target="{{ url_for('chat', chat_id=c[1]) }}">View chat</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='allChats.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Friends
+{% endblock %}
+
+{% block main %}
+    <div class="container min-vh-100 w-100 d-flex flex-column justify-content-center align-items-center">
+        {% if friendsReq or reqSent or friends %}
+            <div class="my-5"></div>
+        {% endif %}
+        <h2 class="my-5">Friends Menu</h2>
+        <div class="border border-1 rounded p-3 mb-5" id="friendsContainer">
+            <form method="POST">
+                <div class="alert alert-danger d-none" role="alert" id="errorBox"></div>
+                <div class="row my-2">
+                    <h4 class="my-1 text-body-secondary">Add friend</h4>
+                    <div class="my-2 col-8">
+                        <div class="input-group">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            <div class="form-floating">
+                                <input class="form-control" type="text" name="user" id="user" placeholder="Username"/>
+                                <label for="user">Username</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid col-4">
+                        <button type="button" class="btn btn-success btn-lg my-2" id="addBtn">Add</button>
+                    </div>
+                </div>
+            </form>
+            <div class="my-2">
+                <h4 class="my-1 text-body-secondary">Friends requests</h4>
+                <hr/>
+                {% if not friendsReq %}
+                    <h5 class="text-body-secondary text-center" id="noFriendReq">No friends requests</h5>
+                {% else %}
+                    <div id="friendsReq">
+                        {% for r in friendsReq %}
+                            <div class="border border-1 rounded p-3 my-1 d-flex flex-row justify-content-between align-content-center">
+                                <h5 class="text-body-secondary my-auto">{{ r }}</h5>
+                                <div>
+                                    <form>
+                                        <button type="button" class="btn btn-success acceptBtn">Accept</button>
+                                        <button type="button" class="btn btn-danger declineBtn">Decline</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="my-2">
+                <h4 class="my-1 text-body-secondary">Requests sent</h4>
+                <hr/>
+                {% if not reqSent %}
+                    <h5 class="text-body-secondary text-center" id="noReqSent">No requests sent</h5>
+                {% else %}
+                    <div id="reqSent">
+                        {% for r in reqSent %}
+                            <div class="border border-1 rounded p-3 my-1 d-flex flex-row justify-content-between align-content-center">
+                                <h5 class="text-body-secondary my-auto">{{ r }}</h5>
+                                <div>
+                                    <form>
+                                        <button type="button" class="btn btn-danger cancelBtn">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="my-2">
+                <h4 class="my-1 text-body-secondary">Friends</h4>
+                <hr/>
+                {% if not friends %}
+                    <h5 class="text-body-secondary text-center">No friends</h5>
+                {% else %}
+                    {% for f in friends %}
+                        <div class="border border-1 rounded p-3 my-1 d-flex flex-row justify-content-between align-content-center">
+                            <h5 class="text-body-secondary my-auto">{{ f }}</h5>
+                            <div>
+                                <form>
+                                    <button type="button" class="btn btn-danger removeBtn">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='friends.js') }}"></script>
+{% endblock %}

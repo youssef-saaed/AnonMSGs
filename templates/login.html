@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    login
+{% endblock %}
+
+{% block main %}
+    <div class="container w-100 d-flex justify-content-center align-items-center" id="myForm">
+        <form method="POST">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    Error! {{ error }}
+                </div>
+            {% endif %}
+            <div class="my-2">
+                <div class="input-group">
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    <div class="form-floating">
+                        <input class="form-control" type="text" name="user" id="user" placeholder="Username"/>
+                        <label for="user">Username</label>
+                    </div>
+                </div>
+            </div>
+            <div class=" form-floating my-2">
+                <input class="form-control" type="password" name="pass" id="pass" placeholder="Password"/>
+                <label for="pass">Password</label>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success btn-lg my-2">Login</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

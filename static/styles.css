@@ -1,0 +1,29 @@
+#myForm {
+    height:100vh;
+}
+
+#myForm form {
+    min-width:40vw;
+}
+
+#msgForm{
+    height:100vh;
+}
+
+#msgForm form {
+    min-width:30vw;
+}
+
+#msgForm textarea {
+    min-height:20vh;
+}
+
+#friendsContainer, #messageCard, #chatsContainer {
+    min-width: 40vw;
+}
+
+@media (max-width:450px){
+    #friendsContainer, #messageCard, #chatsContainer {
+        width:90vw;
+    }
+}
