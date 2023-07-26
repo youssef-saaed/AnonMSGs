@@ -13,8 +13,8 @@ document.getElementById("goBack").addEventListener('submit', (e) => {
 });
 
 let sendBtn = document.getElementById("sendBtn");
-sendBtn.addEventListener("click", () => {
-    let msg = sendBtn.parentNode.previousElementSibling;
+let msg = sendBtn.parentNode.previousElementSibling;
+let sendMessage = () => {
     if (msg.value) {
         let bodySent = new FormData();
         bodySent.append("msg", msg.value);
@@ -28,11 +28,19 @@ sendBtn.addEventListener("click", () => {
                     </div>
                 `;
                 msg.value = '';
+                msg.focus();
             }
             else {
                 window.location.reload();
             }
         });
+    }
+}
+sendBtn.addEventListener("click", sendMessage);
+
+document.getElementById("msgTextBox").addEventListener("keyup", function() {
+    if (event.keyCode === 13) {
+        sendMessage();
     }
 });
 

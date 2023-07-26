@@ -107,6 +107,9 @@ def sendMessage(username):
             elif voiceMsgPath:
                 sqliteQuery(conn, f"INSERT INTO _{user_id} (message, resources) VALUES (:m, :r)", {"m" : msg, "r" : voiceMsgPath})
                 conn.commit()
+            elif sender:
+                sqliteQuery(conn, f"INSERT INTO _{user_id} (message, sender) VALUES (:m, :s)", {"m": msg, "s": sender})
+                conn.commit()
             else:
                 sqliteQuery(conn, f"INSERT INTO _{user_id} (message) VALUES (:m)", {"m" : msg})
                 conn.commit()

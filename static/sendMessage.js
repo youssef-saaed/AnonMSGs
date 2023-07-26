@@ -37,6 +37,9 @@ recBtn.addEventListener("click", () => {
                 t += ":"
                 secs > 9 ? t += secs.toString() : t += "0" + secs.toString();
                 recText.innerText = t;
+                if (time >= 90) {
+                    recBtn.click();
+                }
             }, 1000);
         }
         navigator.mediaDevices.getUserMedia({"audio":true}).then(voiceRecording);
